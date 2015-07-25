@@ -4,6 +4,7 @@
   "description": "",
   "main": "ping.js",
   "dependencies": {
+    "aws-sdk": "^2.1.40",
     "shelljs": "^0.5.1"
   },
   "devDependencies": {},
