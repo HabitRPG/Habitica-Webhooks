@@ -1,14 +1,14 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/webhook', function(req, res, next) {
+router.post('/webhook', (req, res, next) => {
   console.log("hit webhook endpoint");
-  var body = req.body;
+  let body = req.body;
   console.log(body);
   res.sendStatus(200);
 });
