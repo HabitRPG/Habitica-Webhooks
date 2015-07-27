@@ -21,9 +21,9 @@ let uploadFile = (buffer, fileName) => {
     Bucket: BUCKET_NAME
   }, (error, data) => {
     if (error) {
-      console.log('ERROR: #{error}');
+      console.error(`ERROR: ${error}`);
     } else {
-      console.log('#{fileName} uploaded to #{BUCKET_NAME} succesfully.');
+      console.info(`${fileName} uploaded to ${BUCKET_NAME} succesfully.`);
     }
   });
 }
