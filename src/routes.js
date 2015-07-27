@@ -7,6 +7,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/webhook', (req, res, next) => {
   let body = req.body;
+  console.log(body);
   res.sendStatus(200);
 });
 
