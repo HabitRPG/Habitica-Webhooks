@@ -2,7 +2,7 @@ let parse = (body) => {
   console.log(body);
 }
 
-let verify_branch = (branch) => {
+let verifyBranch = (branch) => {
 
 }
 
