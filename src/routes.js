@@ -13,7 +13,7 @@ router.post('/webhook', (req, res, next) => {
 
   if (isXHub && isXHubValid) {
     let body = req.body;
-    webhook.parse(body);
+    console.log(body);
 
     res.sendStatus(200);
   } else {
