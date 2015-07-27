@@ -1,12 +1,16 @@
 let express = require('express');
 let logger = require('morgan');
 let bodyParser = require('body-parser');
+let xhub = require('express-x-hub');
+
+let config = require('./../config.json');
 
 let routes = require('./routes');
 
 let app = express();
 
 app.use(logger('dev'));
+app.use(xhub({ algorithm: 'sha1', secret: config.GITHUB_SECRET }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
