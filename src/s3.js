@@ -1,10 +1,15 @@
 let request = require('superagent');
 let AWS = require('aws-sdk');
 
-let config = require('./../config.json');
+let config = require('./config');
 
-AWS.config.loadFromPath('./config.json');
-let BUCKET_NAME = config.BUCKET_NAME;
+AWS.config.update({
+  accessKeyId: config.get('S3, ACCESS_KEY'),
+  secretAccessKey: config.get('S3_SECRET_KEY'),
+  region: config.get('S3_REGION')
+});
+
+let BUCKET_NAME = config.get('BUCKET_NAME');
 let s3 = new AWS.S3();
 
 let uploadFile = (buffer, fileName) => {

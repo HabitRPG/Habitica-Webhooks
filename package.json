@@ -12,6 +12,7 @@
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "morgan": "~1.5.1",
+    "nconf": "^0.7.1",
     "superagent": "^1.2.0"
   },
   "devDependencies": {},
