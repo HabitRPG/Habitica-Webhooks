@@ -15,6 +15,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "postinstall": "node_modules/.bin/gulp babel",
     "start": "node bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
