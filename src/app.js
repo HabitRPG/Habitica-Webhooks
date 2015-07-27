@@ -2,7 +2,7 @@ let express = require('express');
 let logger = require('morgan');
 let bodyParser = require('body-parser');
 
-let routes = require('./routes/index');
+let routes = require('./routes');
 
 let app = express();
 
