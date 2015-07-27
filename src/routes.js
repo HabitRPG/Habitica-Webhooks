@@ -1,6 +1,8 @@
 let express = require('express');
 let router = express.Router();
 
+let webhook = require('./webhook');
+
 router.get('/', (req, res, next) => {
   res.send('(ಠ_ಠ)').status(200);
 });
@@ -11,10 +13,10 @@ router.post('/webhook', (req, res, next) => {
 
   if (isXHub && isXHubValid) {
     let body = req.body;
-    console.log("VALID");
+    webhook.parse(body);
+
     res.sendStatus(200);
   } else {
-    console.log("Not valid");
     res.sendStatus(403);
   }
 });
