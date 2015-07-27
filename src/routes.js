@@ -6,9 +6,10 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/webhook', (req, res, next) => {
-  let isValid = req.isXHubValid();
+  let isXHub = req.isXHub;
+  let isXHubValid = req.isXHubValid();
 
-  if (isValid) {
+  if (isXHub && isXHubValid) {
     let body = req.body;
     console.log("VALID");
     res.sendStatus(200);
