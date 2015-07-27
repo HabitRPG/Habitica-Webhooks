@@ -28,13 +28,17 @@ let uploadFile = (buffer, fileName) => {
   });
 }
 
-let getFileFromUrlAndUpload = (url, name) => {
+let getFileFromUrlAndUpload = (url, name, cb) => {
   request.get(url)
     .end((err, res) => {
-      if (err) { console.log(err); }
+      if (err) {
+        console.error(err);
+      } else {
+        var file = res.body;
+        uploadFile(file, name);
+      }
 
-      var file = res.body;
-      uploadFile(file, name);
+      cb();
     });
 }
 
