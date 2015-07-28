@@ -25,16 +25,28 @@ var _getNewFiles = (commits) => {
 
 var _filterOutUnwatchedFiles = (files) => {
   let watchedDirectories = config.get('GITHUB_WATCHED_DIRECTORIES');
+  console.log("DIRECTORIES TO WATCH");
+  console.log(watchedDirectories);
+  console.log("*************************");
 
   let watchedFiles = _(watchedDirectories).map((path) => {
     let contains = _.filter(files, (file) => {
       return _.startsWith(file, path);
     });
 
+    console.log("CONTAINS");
+    console.log(contains);
+  console.log("*************************");
     return contains;
   }).value();
 
+  console.log("WATCHED FILES");
+  console.log(watchedFiles);
+  console.log("*************************");
+
   let flattenedFiles = _.flatten(watchedFiles);
+  console.log("FLATTEND");
+  console.log(flattenedFiles);
 
   return flattenedFiles;
 };
