@@ -38,7 +38,7 @@ let getFileFromUrlAndUpload = (url, name, cb) => {
         uploadFile(file, name);
       }
 
-      cb();
+      if(cb) cb();
     });
 }
 

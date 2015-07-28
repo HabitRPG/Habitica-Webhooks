@@ -23,6 +23,9 @@ router.post('/webhook', (req, res) => {
     let repoName = body.repository.full_name;
     let baseUrl = `https://raw.githubusercontent.com/${repoName}/${branch}/`;
 
+    console.log(files);
+    console.log(repoName);
+    console.log(baseUrl);
     if (files) {
       _uploadFiles(files, baseUrl);
     }
