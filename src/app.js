@@ -10,7 +10,7 @@ let routes = require('./routes');
 let app = express();
 
 app.use(logger('dev'));
-app.use(xhub({ algorithm: 'sha1', secret: config.get('GITHUB_SECRET') }));
+// app.use(xhub({ algorithm: 'sha1', secret: config.get('GITHUB_SECRET') }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -24,6 +24,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+  console.log('got here');
   res.send('( 　ﾟ,_ゝﾟ)').status(err.status || 500);
 });
 
