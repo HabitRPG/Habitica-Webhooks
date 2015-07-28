@@ -57,8 +57,10 @@ var _uploadFiles = (files, baseUrl) => {
 var _getFileName = (file) => {
   let piecesOfPath = file.split('/');
   let name = _.last(piecesOfPath);
+  let directory = config.get('S3_DIRECTORY');
+  let fullName = directory + name;
 
-  return name;
+  return fullName;
 }
 
 var _checkXHub = (req) => {
