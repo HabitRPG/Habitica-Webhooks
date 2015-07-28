@@ -3,16 +3,17 @@ let router = express.Router();
 
 let webhook = require('./webhook');
 let s3 = require('./s3');
+let config = require('./config');
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.send('(ಠ_ಠ)').status(200);
 });
 
-router.post('/webhook', (req, res, next) => {
-  // let isXHub = req.isXHub;
-  // let isXHubValid = req.isXHubValid();
-  //
-  // if (isXHub && isXHubValid) {
+router.post('/webhook', (req, res) => {
+  console.log("IN WEBHOOK ROUTE");
+  let isXHubValid = _checkXHub(req);
+
+  if (isXHubValid) {
     let body = req.body;
 
     let branch = config.get('GITHUB_BRANCH_TO_WATCH');
@@ -26,9 +27,9 @@ router.post('/webhook', (req, res, next) => {
     }
 
     res.sendStatus(200);
-  // } else {
-  //   res.sendStatus(403);
-  // }
+  } else {
+    res.sendStatus(403);
+  }
 });
 
 var _getFilesToUpload = (body) => {
@@ -54,6 +55,10 @@ var _getFileName = (file) => {
   let name = _.last(piecesOfPath);
 
   return name;
+}
+
+var _checkXHub = (req) => {
+  return req.isXHub && req.isXHubValid();
 }
 
 module.exports = router;
