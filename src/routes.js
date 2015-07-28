@@ -49,7 +49,7 @@ var _uploadFiles = (files, baseUrl) => {
   }).value();
 }
 
-var _getFileName(file) {
+var _getFileName = (file) => {
   let piecesOfPath = file.split('/');
   let name = _.last(piecesOfPath);
 
