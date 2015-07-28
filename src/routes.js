@@ -9,10 +9,10 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/webhook', (req, res, next) => {
-  let isXHub = req.isXHub;
-  let isXHubValid = req.isXHubValid();
-
-  if (isXHub && isXHubValid) {
+  // let isXHub = req.isXHub;
+  // let isXHubValid = req.isXHubValid();
+  //
+  // if (isXHub && isXHubValid) {
     let body = req.body;
 
     let branch = config.get('GITHUB_BRANCH_TO_WATCH');
@@ -26,9 +26,9 @@ router.post('/webhook', (req, res, next) => {
     }
 
     res.sendStatus(200);
-  } else {
-    res.sendStatus(403);
-  }
+  // } else {
+  //   res.sendStatus(403);
+  // }
 });
 
 var _getFilesToUpload = (body) => {
