@@ -4,7 +4,7 @@ let AWS = require('aws-sdk');
 let config = require('./config');
 
 AWS.config.update({
-  accessKeyId: config.get('S3, ACCESS_KEY'),
+  accessKeyId: config.get('S3_ACCESS_KEY'),
   secretAccessKey: config.get('S3_SECRET_KEY'),
   region: config.get('S3_REGION')
 });
