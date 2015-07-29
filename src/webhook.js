@@ -46,7 +46,7 @@ var _filterOutUnwatchedFiles = (files) => {
   console.log(watchedFiles);
   console.log("*************************");
 
-  let flattenedFiles = _.flatten(watchedFiles);
+  let flattenedFiles = _.flattenDeep(watchedFiles);
   console.log("FLATTEND");
   console.log(flattenedFiles);
 
