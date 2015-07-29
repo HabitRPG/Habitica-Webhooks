@@ -1,0 +1,10 @@
+{
+  "GITHUB_SECRET": "the secret string supplied when setting up the webhook",
+  "GITHUB_BRANCH_TO_WATCH": "the branch where changes should be inspected; usually master",
+  "GITHUB_WATCHED_DIRECTORIES": "an array of paths to watch",
+  "S3_BUCKET_NAME": "The s3 bucket that you upload to",
+  "S3_REGION": "the region where the bucket resides",
+  "S3_DIRECTORY": "the directory in the bucket where the files should be uploaded to",
+  "S3_ACCESS_KEY": "the public key for s3",
+  "S3_SECRET_KEY": "the secret key for s3"
+}
