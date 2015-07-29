@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
 });
 
 router.post('/webhook', (req, res) => {
-  console.log("IN WEBHOOK ROUTE");
   let isXHubValid = _checkXHub(req);
 
   if (isXHubValid) {
@@ -23,9 +22,6 @@ router.post('/webhook', (req, res) => {
     let repoName = body.repository.full_name;
     let baseUrl = `https://raw.githubusercontent.com/${repoName}/${branch}/`;
 
-    console.log(files);
-    console.log(repoName);
-    console.log(baseUrl);
     if (files) {
       _uploadFiles(files, baseUrl);
     }
