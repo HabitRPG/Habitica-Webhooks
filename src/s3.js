@@ -9,7 +9,7 @@ AWS.config.update({
   region: config.get('S3_REGION')
 });
 
-let BUCKET_NAME = config.get('BUCKET_NAME');
+let BUCKET_NAME = config.get('S3_BUCKET_NAME');
 let s3 = new AWS.S3();
 
 let uploadFile = (buffer, fileName) => {
