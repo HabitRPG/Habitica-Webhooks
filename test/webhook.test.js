@@ -92,6 +92,27 @@ describe('webhook', () => {
         expect(images).to.exist;
         expect(images).to.eql(['foo/image.png', 'foo/image2.png']);
       });
+
+      it('includes modified files', () => {
+        let modifiedFiles = [
+          'foo/image.png'
+        ];
+        let addedFiles = [
+          'foo/image2.png'
+        ];
+        let body = {
+          commits: [{
+           added: addedFiles,
+           modified: modifiedFiles
+          }]
+        };
+
+        let images = webhook.getWatchedFiles(body);
+        expect(images).to.exist;
+        expect(images).to.have.length(2);
+        expect(images).to.include('foo/image.png');
+        expect(images).to.include('foo/image2.png');
+      });
     });
   });
 });

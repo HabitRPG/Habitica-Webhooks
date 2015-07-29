@@ -2,8 +2,8 @@ let config = require('./config');
 let _ = require('lodash');
 
 let getWatchedFiles = (body) => {
-  let addedFiles = _getNewFiles(body.commits);
-  let watchedFiles = _filterOutUnwatchedFiles(addedFiles);
+  let newFiles = _getNewFiles(body.commits);
+  let watchedFiles = _filterOutUnwatchedFiles(newFiles);
 
   return watchedFiles;
 }
@@ -16,8 +16,10 @@ var verifyBranch = (ref) => {
 }
 
 var _getNewFiles = (commits) => {
-  let files = _.pluck(commits, 'added');
-  let flattenedFiles = _.flatten(files);
+  let addedFiles = _.pluck(commits, 'added');
+  let modifiedFiles = _.pluck(commits, 'modified');
+
+  let flattenedFiles = _.flattenDeep([addedFiles, modifiedFiles]);
   let uniqFiles = _.uniq(flattenedFiles);
 
   return uniqFiles;
