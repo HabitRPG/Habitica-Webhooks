@@ -26,7 +26,7 @@ var _getNewFiles = (commits) => {
 }
 
 var _filterOutUnwatchedFiles = (files) => {
-  let watchedDirectories = config.get('GITHUB_WATCHED_DIRECTORIES');
+  let watchedDirectories = JSON.parse(config.get('GITHUB_WATCHED_DIRECTORIES'));
 
   let watchedFiles = _(watchedDirectories).map((path) => {
     let contains = _.filter(files, (file) => {
