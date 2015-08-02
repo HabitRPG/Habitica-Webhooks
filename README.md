@@ -8,16 +8,16 @@ Go to the settings of the Github repo you desire to watch and add a new webhook 
 
 You will need to supply a few environmental variables, whether through a config.json file or passed in on the command line as arguments.
 
-| env variable               | description                                                                               |
-|----------------------------|-------------------------------------------------------------------------------------------|
-| GITHUB_SECRET              | the secret string supplied when setting up the webhook                                    |
-| GITHUB_BRANCH_TO_WATCH     | the branch where changes should be inspected; usually master                              |
-| GITHUB_WATCHED_DIRECTORIES | an array of paths to watch, formatted as a string: `"['path/to/images', 'another/path']"` |
-| S3_BUCKET_NAME             | The s3 bucket that you upload to                                                          |
-| S3_REGION                  | the region where the bucket resides                                                       |
-| S3_DIRECTORY               | the directory in the bucket where the files should be uploaded to                         |
-| S3_ACCESS_KEY              | the public key for s3                                                                     |
-| S3_SECRET_KEY              | the secret key for s3                                                                     |
+| env variable               | description                                                                                                                          |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| GITHUB_SECRET              | the secret string supplied when setting up the webhook                                                                               |
+| GITHUB_BRANCH_TO_WATCH     | the branch where changes should be inspected; usually master                                                                         |
+| GITHUB_WATCHED_DIRECTORIES | an array of paths to watch, formatted as a json string (must use double quotes around paths): `'["path/to/images", "another/path"]'` |
+| S3_BUCKET_NAME             | The s3 bucket that you upload to                                                                                                     |
+| S3_REGION                  | the region where the bucket resides                                                                                                  |
+| S3_DIRECTORY               | the directory in the bucket where the files should be uploaded to                                                                    |
+| S3_ACCESS_KEY              | the public key for s3                                                                                                                |
+| S3_SECRET_KEY              | the secret key for s3                                                                                                                |
 
 ## Tests
 
