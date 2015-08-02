@@ -30,8 +30,8 @@ describe('webhook', () => {
   describe('getWatchedFiles', () => {
 
     beforeEach(() => {
-      let directoriesToWatch = [ 'foo', 'bar/baz' ];
-      config.set('GITHUB_WATCHED_DIRECTORIES',directoriesToWatch);
+      let directoriesToWatch = '["foo", "bar/baz"]';
+      config.set('GITHUB_WATCHED_DIRECTORIES', directoriesToWatch);
     });
 
     context('no new files added in commits', () => {
