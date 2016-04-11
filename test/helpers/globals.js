@@ -1,3 +1,5 @@
+'use strict';
+
 global.sinon     = require('sinon');
 global.sinonChai = require('sinon-chai');
 global.expect    = require('chai').expect;

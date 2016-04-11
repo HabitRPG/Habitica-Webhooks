@@ -1,3 +1,5 @@
+'use strict';
+
 let request = require('superagent');
 let AWS = require('aws-sdk');
 

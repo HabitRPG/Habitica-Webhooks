@@ -1,3 +1,5 @@
+'use strict';
+
 let rewire = require('rewire');
 let webhook = require('../src/webhook');
 

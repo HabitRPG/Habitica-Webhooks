@@ -1,3 +1,5 @@
+'use strict';
+
 let rewire = require('rewire');
 let s3 = rewire('../src/s3');
 
@@ -68,7 +70,7 @@ describe('s3', () => {
       });
     });
 
-    it('calls uploadFile when ', (done) => {
+    it('calls uploadFile when url is valid', (done) => {
       requestEndStub.yields(null, { body: 'a binary' });
 
       s3.getFileFromUrlAndUpload('http:.//goodurl.example.com/foo.png', 'testFile.png', () => {

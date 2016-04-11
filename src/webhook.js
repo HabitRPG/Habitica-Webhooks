@@ -1,3 +1,5 @@
+'use strict';
+
 let config = require('./config');
 let _ = require('lodash');
 
