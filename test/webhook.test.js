@@ -1,9 +1,9 @@
 'use strict';
 
 let rewire = require('rewire');
-let webhook = require('../src/webhook');
+let webhook = require('../src/lib/webhook');
 
-let config = require('../src/config');
+let config = require('../src/lib/config');
 
 
 describe('webhook', () => {

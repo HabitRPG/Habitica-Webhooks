@@ -4,9 +4,9 @@ let express = require('express');
 let router = express.Router();
 let _ = require('lodash');
 
-let webhook = require('./webhook');
-let s3 = require('./s3');
-let config = require('./config');
+let webhook = require('../lib/webhook');
+let s3 = require('../lib/s3');
+let config = require('../lib/config');
 
 router.get('/', (req, res) => {
   res.send('(ಠ_ಠ)').status(200);

@@ -5,7 +5,7 @@ let logger = require('morgan');
 let bodyParser = require('body-parser');
 let xhub = require('express-x-hub');
 
-let config = require('./config');
+let config = require('./lib/config');
 
 let routes = require('./routes');
 
