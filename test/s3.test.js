@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable no-console */
 
 let rewire = require('rewire');
 let s3 = rewire('../src/lib/s3');
@@ -11,7 +12,7 @@ describe('s3', () => {
     requestStub = sandbox.stub();
     requestEndStub = sandbox.stub();
     requestStub.returns({
-      end: requestEndStub
+      end: requestEndStub,
     });
 
     s3.__set__('BUCKET_NAME', 'test.bucket');
@@ -24,7 +25,6 @@ describe('s3', () => {
   });
 
   describe('uploadFile', () => {
-
     it('calls s3.putObject', () => {
       s3.uploadFile('buffer', 'fileName');
 
@@ -32,7 +32,7 @@ describe('s3', () => {
       expect(s3Stub).to.be.calledWith({
         Body: 'buffer',
         Key: 'fileName',
-        Bucket: 'test.bucket'
+        Bucket: 'test.bucket',
       });
     });
 
@@ -58,7 +58,6 @@ describe('s3', () => {
   });
 
   describe('getFileFromUrlAndUpload', () => {
-
     it('logs error when url is invalid', (done) => {
       sandbox.stub(console, 'error');
       requestEndStub.yields('bad url');

@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "habitrpg/mocha",
+    "habitrpg/es6"
+  ]
+}

@@ -12,6 +12,38 @@ router.get('/', (req, res) => {
   res.send('(ಠ_ಠ)').status(200);
 });
 
+let _getFilesToUpload = (body) => {
+  let isCorrectBranch = webhook.verifyBranch(body.ref);
+
+  if (isCorrectBranch) {
+    return webhook.getWatchedFiles(body);
+  }
+
+  return false;
+};
+
+let _getFileName = (file) => {
+  let piecesOfPath = file.split('/');
+  let name = _.last(piecesOfPath);
+  let directory = config.get('S3_DIRECTORY');
+  let fullName = directory + name;
+
+  return fullName;
+};
+
+
+let _uploadFiles = (files, baseUrl) => {
+  _(files).each((file) => {
+    let fullUrl = `${baseUrl}${file}`;
+    let fileName = _getFileName(file);
+    s3.getFileFromUrlAndUpload(fullUrl, fileName);
+  }).value();
+};
+
+let _checkXHub = (req) => {
+  return req.isXHub && req.isXHubValid();
+};
+
 router.post('/webhook', (req, res) => {
   let isXHubValid = _checkXHub(req);
 
@@ -33,36 +65,5 @@ router.post('/webhook', (req, res) => {
     res.sendStatus(403);
   }
 });
-
-var _getFilesToUpload = (body) => {
-  let isCorrectBranch = webhook.verifyBranch(body.ref);
-
-  if(isCorrectBranch) {
-    return webhook.getWatchedFiles(body);
-  }
-
-  return false;
-}
-
-var _uploadFiles = (files, baseUrl) => {
-  _(files).each((file) => {
-    let fullUrl = `${baseUrl}${file}`;
-    let fileName = _getFileName(file);
-    s3.getFileFromUrlAndUpload(fullUrl, fileName);
-  }).value();
-}
-
-var _getFileName = (file) => {
-  let piecesOfPath = file.split('/');
-  let name = _.last(piecesOfPath);
-  let directory = config.get('S3_DIRECTORY');
-  let fullName = directory + name;
-
-  return fullName;
-}
-
-var _checkXHub = (req) => {
-  return req.isXHub && req.isXHubValid();
-}
 
 module.exports = router;

@@ -1,11 +1,10 @@
 'use strict';
 
-global.sinon     = require('sinon');
-global.sinonChai = require('sinon-chai');
-global.expect    = require('chai').expect;
-global.chai      = require('chai');
+let chai = require('chai');
+let sinonChai = require('sinon-chai');
 
-chai.use(expect);
 chai.use(sinonChai);
 
-global.sandbox = sinon.sandbox.create();
+global.sinon = require('sinon');
+global.expect = require('chai').expect;
+global.sandbox = global.sinon.sandbox.create();

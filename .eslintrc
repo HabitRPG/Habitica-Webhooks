@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "habitrpg/server",
+    "habitrpg/es6"
+  ],
+  "rules": {
+    "no-console": 0
+  }
+}

@@ -8,7 +8,7 @@ let config = require('./config');
 AWS.config.update({
   accessKeyId: config.get('S3_ACCESS_KEY'),
   secretAccessKey: config.get('S3_SECRET_KEY'),
-  region: config.get('S3_REGION')
+  region: config.get('S3_REGION'),
 });
 
 let BUCKET_NAME = config.get('S3_BUCKET_NAME');
@@ -20,15 +20,15 @@ let uploadFile = (buffer, fileName) => {
   s3.putObject({
     Body: buffer,
     Key: fileName,
-    Bucket: BUCKET_NAME
-  }, (error, data) => {
+    Bucket: BUCKET_NAME,
+  }, (error) => {
     if (error) {
       console.error(`ERROR: ${error}`);
     } else {
       console.info(`${fileName} uploaded to ${BUCKET_NAME} succesfully.`);
     }
   });
-}
+};
 
 let getFileFromUrlAndUpload = (url, name, cb) => {
   request.get(url)
@@ -36,16 +36,16 @@ let getFileFromUrlAndUpload = (url, name, cb) => {
       if (err) {
         console.error(err);
       } else {
-        var file = res.body;
+        let file = res.body;
         uploadFile(file, name);
       }
 
-      if(cb) cb();
+      if (cb) cb();
     });
-}
+};
 
 module.exports = {
   getFileFromUrlAndUpload: getFileFromUrlAndUpload,
-  uploadFile: uploadFile
-}
+  uploadFile: uploadFile,
+};
 
