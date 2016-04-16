@@ -7,7 +7,8 @@ let xhub = require('express-x-hub');
 
 let config = require('./lib/config');
 
-let routes = require('./routes');
+let baseRoutes = require('./routes');
+let githubRoutes = require('./routes/github');
 
 let app = express();
 
@@ -16,7 +17,8 @@ app.use(xhub({ algorithm: 'sha1', secret: config.get('GITHUB_SECRET') }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', routes);
+app.use('/', baseRoutes);
+app.use('/github', githubRoutes);
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(err.status || 500);
