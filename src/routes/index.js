@@ -4,6 +4,8 @@ let express = require('express');
 let router = express.Router();
 let _ = require('lodash');
 
+let checkXHub = require('../middleware/xhub').checkXHub;
+
 let webhook = require('../lib/webhook');
 let s3 = require('../lib/s3');
 let config = require('../lib/config');
@@ -40,30 +42,20 @@ let _uploadFiles = (files, baseUrl) => {
   }).value();
 };
 
-let _checkXHub = (req) => {
-  return req.isXHub && req.isXHubValid();
-};
+router.post('/webhook', checkXHub, (req, res) => {
+  let body = req.body;
 
-router.post('/webhook', (req, res) => {
-  let isXHubValid = _checkXHub(req);
+  let branch = config.get('GITHUB_BRANCH_TO_WATCH');
+  let files = _getFilesToUpload(body);
 
-  if (isXHubValid) {
-    let body = req.body;
+  let repoName = body.repository.full_name;
+  let baseUrl = `https://raw.githubusercontent.com/${repoName}/${branch}/`;
 
-    let branch = config.get('GITHUB_BRANCH_TO_WATCH');
-    let files = _getFilesToUpload(body);
-
-    let repoName = body.repository.full_name;
-    let baseUrl = `https://raw.githubusercontent.com/${repoName}/${branch}/`;
-
-    if (files) {
-      _uploadFiles(files, baseUrl);
-    }
-
-    res.sendStatus(200);
-  } else {
-    res.sendStatus(403);
+  if (files) {
+    _uploadFiles(files, baseUrl);
   }
+
+  res.sendStatus(200);
 });
 
 module.exports = router;
