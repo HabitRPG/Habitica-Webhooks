@@ -1,9 +1,9 @@
 'use strict';
 
-let webhook = require('../src/lib/webhook');
+let github = require('../src/lib/github');
 let config = require('../src/lib/config');
 
-describe('webhook', () => {
+describe('github', () => {
   describe('verifyBranch', () => {
     beforeEach(() => {
       config.set('GITHUB_BRANCH_TO_WATCH', 'foo');
@@ -11,14 +11,14 @@ describe('webhook', () => {
 
     it('returns false if not the correct branch', () => {
       let ref = 'refs/heads/bar';
-      let result = webhook.verifyBranch(ref);
+      let result = github.verifyBranch(ref);
 
       expect(result).to.eql(false);
     });
 
     it('returns true if the branch to check matches the ref', () => {
       let ref = 'refs/heads/foo';
-      let result = webhook.verifyBranch(ref);
+      let result = github.verifyBranch(ref);
 
       expect(result).to.eql(true);
     });
@@ -38,7 +38,7 @@ describe('webhook', () => {
           ],
         };
 
-        let images = webhook.getWatchedFiles(body);
+        let images = github.getWatchedFiles(body);
         expect(images).to.be.empty;
       });
     });
@@ -51,7 +51,7 @@ describe('webhook', () => {
           ],
         };
 
-        let images = webhook.getWatchedFiles(body);
+        let images = github.getWatchedFiles(body);
         expect(images).to.be.empty;
       });
     });
@@ -66,7 +66,7 @@ describe('webhook', () => {
           commits: [{ added: addedFiles }],
         };
 
-        let images = webhook.getWatchedFiles(body);
+        let images = github.getWatchedFiles(body);
         expect(images).to.exist;
         expect(images).to.eql(['foo/image.png', 'bar/baz/another_image.png']);
       });
@@ -84,7 +84,7 @@ describe('webhook', () => {
           commits: [{ added: addedFiles1 }, { added: addedFiles2 }],
         };
 
-        let images = webhook.getWatchedFiles(body);
+        let images = github.getWatchedFiles(body);
         expect(images).to.exist;
         expect(images).to.eql(['foo/image.png', 'foo/image2.png']);
       });
@@ -103,7 +103,7 @@ describe('webhook', () => {
           }],
         };
 
-        let images = webhook.getWatchedFiles(body);
+        let images = github.getWatchedFiles(body);
         expect(images).to.exist;
         expect(images).to.have.length(2);
         expect(images).to.include('foo/image.png');

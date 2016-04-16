@@ -6,7 +6,7 @@ let _ = require('lodash');
 
 let checkXHub = require('../middleware/xhub').checkXHub;
 
-let webhook = require('../lib/webhook');
+let github = require('../lib/github');
 let s3 = require('../lib/s3');
 let config = require('../lib/config');
 
@@ -15,10 +15,10 @@ router.get('/', (req, res) => {
 });
 
 let _getFilesToUpload = (body) => {
-  let isCorrectBranch = webhook.verifyBranch(body.ref);
+  let isCorrectBranch = github.verifyBranch(body.ref);
 
   if (isCorrectBranch) {
-    return webhook.getWatchedFiles(body);
+    return github.getWatchedFiles(body);
   }
 
   return false;
