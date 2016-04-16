@@ -19,6 +19,12 @@ describe('s3', () => {
   });
 
   describe('uploadFile', () => {
+    it('returns a promise', () => {
+      let promise = s3.uploadFile('buffer', 'fileName');
+
+      expect(promise).to.respondTo('then');
+    });
+
     it('calls s3.putObject', () => {
       s3.uploadFile('buffer', 'fileName');
 
@@ -30,24 +36,24 @@ describe('s3', () => {
       });
     });
 
-    it('logs any errors', () => {
-      sandbox.stub(console, 'error');
+    it('passes on s3 error to catch', (done) => {
       s3Stub.yields('s3 error');
 
-      s3.uploadFile('buffer', 'fileName');
-
-      expect(console.error).to.be.calledOnce;
-      expect(console.error).to.be.calledWith('ERROR: s3 error');
+      s3.uploadFile('buffer', 'fileName').catch((error) => {
+        expect(error).to.eql('s3 error');
+        done();
+      });
     });
 
-    it('logs a succesful upload', () => {
+    it('logs a succesful upload', (done) => {
       sandbox.stub(console, 'info');
       s3Stub.yields(null, 'success');
 
-      s3.uploadFile('buffer', 'fileName');
-
-      expect(console.info).to.be.calledOnce;
-      expect(console.info).to.be.calledWith('fileName uploaded to test.bucket succesfully.');
+      s3.uploadFile('buffer', 'fileName').then(() => {
+        expect(console.info).to.be.calledOnce;
+        expect(console.info).to.be.calledWith('fileName uploaded to test.bucket succesfully.');
+        done();
+      });
     });
   });
 });

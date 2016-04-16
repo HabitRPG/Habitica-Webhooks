@@ -1,5 +1,6 @@
 'use strict';
 
+let Promise = require('bluebird');
 let AWS = require('aws-sdk');
 
 let config = require('./config');
@@ -15,16 +16,19 @@ let s3 = new AWS.S3();
 
 // Adapted from http://stackoverflow.com/a/22210077/2601552
 function uploadFile (buffer, fileName) {
-  s3.putObject({
-    Body: buffer,
-    Key: fileName,
-    Bucket: BUCKET_NAME,
-  }, (error) => {
-    if (error) {
-      console.error(`ERROR: ${error}`);
-    } else {
-      console.info(`${fileName} uploaded to ${BUCKET_NAME} succesfully.`);
-    }
+  return new Promise((resolve, reject) => {
+    s3.putObject({
+      Body: buffer,
+      Key: fileName,
+      Bucket: BUCKET_NAME,
+    }, (error) => {
+      if (error) {
+        reject(error);
+      } else {
+        console.info(`${fileName} uploaded to ${BUCKET_NAME} succesfully.`);
+        resolve();
+      }
+    });
   });
 }
 
