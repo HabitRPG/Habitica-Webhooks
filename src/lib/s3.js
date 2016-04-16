@@ -14,9 +14,8 @@ AWS.config.update({
 let BUCKET_NAME = config.get('S3_BUCKET_NAME');
 let s3 = new AWS.S3();
 
-let uploadFile = (buffer, fileName) => {
-  // Adapted from http://stackoverflow.com/a/22210077/2601552
-
+// Adapted from http://stackoverflow.com/a/22210077/2601552
+function uploadFile (buffer, fileName) {
   s3.putObject({
     Body: buffer,
     Key: fileName,
@@ -28,9 +27,9 @@ let uploadFile = (buffer, fileName) => {
       console.info(`${fileName} uploaded to ${BUCKET_NAME} succesfully.`);
     }
   });
-};
+}
 
-let getFileFromUrlAndUpload = (url, name, cb) => {
+function getFileFromUrlAndUpload (url, name, cb) {
   request.get(url)
     .end((err, res) => {
       if (err) {
@@ -42,7 +41,7 @@ let getFileFromUrlAndUpload = (url, name, cb) => {
 
       if (cb) cb();
     });
-};
+}
 
 module.exports = {
   getFileFromUrlAndUpload: getFileFromUrlAndUpload,
