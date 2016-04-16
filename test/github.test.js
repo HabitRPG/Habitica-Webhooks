@@ -4,26 +4,6 @@ let github = require('../src/lib/github');
 let config = require('../src/lib/config');
 
 describe('github', () => {
-  describe('verifyBranch', () => {
-    beforeEach(() => {
-      config.set('GITHUB_BRANCH_TO_WATCH', 'foo');
-    });
-
-    it('returns false if not the correct branch', () => {
-      let ref = 'refs/heads/bar';
-      let result = github.verifyBranch(ref);
-
-      expect(result).to.eql(false);
-    });
-
-    it('returns true if the branch to check matches the ref', () => {
-      let ref = 'refs/heads/foo';
-      let result = github.verifyBranch(ref);
-
-      expect(result).to.eql(true);
-    });
-  });
-
   describe('getWatchedFiles', () => {
     beforeEach(() => {
       let directoriesToWatch = '["foo", "bar/baz"]';

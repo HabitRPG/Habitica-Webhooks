@@ -4,7 +4,9 @@ let express = require('express');
 let router = express.Router();
 let _ = require('lodash');
 
-let checkXHub = require('../middleware/xhub').checkXHub;
+let githubMiddleware = require('../middleware/github');
+let checkXHub = githubMiddleware.checkXHub;
+let checkGithubBranch = githubMiddleware.checkGithubBranch;
 
 let github = require('../lib/github');
 let s3 = require('../lib/s3');
@@ -13,16 +15,6 @@ let config = require('../lib/config');
 router.get('/', (req, res) => {
   res.send('(ಠ_ಠ)').status(200);
 });
-
-let _getFilesToUpload = (body) => {
-  let isCorrectBranch = github.verifyBranch(body.ref);
-
-  if (isCorrectBranch) {
-    return github.getWatchedFiles(body);
-  }
-
-  return false;
-};
 
 let _getFileName = (file) => {
   let piecesOfPath = file.split('/');
@@ -42,18 +34,15 @@ let _uploadFiles = (files, baseUrl) => {
   }).value();
 };
 
-router.post('/webhook', checkXHub, (req, res) => {
+router.post('/webhook', checkXHub, checkGithubBranch, (req, res) => {
   let body = req.body;
 
+  let files = github.getWatchedFiles(body);
   let branch = config.get('GITHUB_BRANCH_TO_WATCH');
-  let files = _getFilesToUpload(body);
-
   let repoName = body.repository.full_name;
   let baseUrl = `https://raw.githubusercontent.com/${repoName}/${branch}/`;
 
-  if (files) {
-    _uploadFiles(files, baseUrl);
-  }
+  _uploadFiles(files, baseUrl);
 
   res.sendStatus(200);
 });

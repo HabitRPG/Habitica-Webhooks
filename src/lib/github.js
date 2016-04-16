@@ -37,14 +37,6 @@ function getWatchedFiles (body) {
   return watchedFiles;
 }
 
-function verifyBranch (ref) {
-  let branchToCheck = config.get('GITHUB_BRANCH_TO_WATCH');
-  let refToCheck = `refs/heads/${branchToCheck}`;
-
-  return ref === refToCheck;
-}
-
 module.exports = {
   getWatchedFiles: getWatchedFiles,
-  verifyBranch: verifyBranch,
 };
