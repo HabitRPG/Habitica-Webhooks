@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 let rewire = require('rewire');
-let s3 = rewire('../src/lib/s3');
+let s3 = rewire('../../src/lib/s3');
 
 describe('s3', () => {
   let s3Stub, requestStub, requestEndStub;

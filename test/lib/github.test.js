@@ -1,7 +1,7 @@
 'use strict';
 
-let github = require('../src/lib/github');
-let config = require('../src/lib/config');
+let github = require('../../src/lib/github');
+let config = require('../../src/lib/config');
 
 describe('github', () => {
   describe('getWatchedFiles', () => {
