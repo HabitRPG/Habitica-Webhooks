@@ -18,4 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', routes);
 
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  res.status(err.status || 500);
+});
+
 module.exports = app;
