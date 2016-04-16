@@ -3,9 +3,15 @@
 let config = require('./config');
 let _ = require('lodash');
 
-function _getNewFiles (commits) {
-  let addedFiles = _.pluck(commits, 'added');
-  let modifiedFiles = _.pluck(commits, 'modified');
+function getFiles (commits, type) {
+  let files = _(commits).pluck(type).flattenDeep().uniq().filter().value();
+
+  return files;
+}
+
+function getNewFiles (commits) {
+  let addedFiles = getFiles(commits, 'added');
+  let modifiedFiles = getFiles(commits, 'modified');
 
   let flattenedFiles = _.flattenDeep([addedFiles, modifiedFiles]);
   let uniqFiles = _.uniq(flattenedFiles);
@@ -13,7 +19,7 @@ function _getNewFiles (commits) {
   return uniqFiles;
 }
 
-function _filterOutUnwatchedFiles (files) {
+function filterOutUnwatchedFiles (files) {
   let watchedDirectories = JSON.parse(config.get('GITHUB_WATCHED_DIRECTORIES'));
 
   let watchedFiles = _(watchedDirectories).map((path) => {
@@ -31,12 +37,13 @@ function _filterOutUnwatchedFiles (files) {
 }
 
 function getWatchedFiles (body) {
-  let newFiles = _getNewFiles(body.commits);
-  let watchedFiles = _filterOutUnwatchedFiles(newFiles);
+  let newFiles = getNewFiles(body.commits);
+  let watchedFiles = filterOutUnwatchedFiles(newFiles);
 
   return watchedFiles;
 }
 
 module.exports = {
+  getFiles: getFiles,
   getWatchedFiles: getWatchedFiles,
 };
