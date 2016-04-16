@@ -1,6 +1,5 @@
 'use strict';
 
-let request = require('superagent');
 let AWS = require('aws-sdk');
 
 let config = require('./config');
@@ -29,22 +28,7 @@ function uploadFile (buffer, fileName) {
   });
 }
 
-function getFileFromUrlAndUpload (url, name, cb) {
-  request.get(url)
-    .end((err, res) => {
-      if (err) {
-        console.error(err);
-      } else {
-        let file = res.body;
-        uploadFile(file, name);
-      }
-
-      if (cb) cb();
-    });
-}
-
 module.exports = {
-  getFileFromUrlAndUpload: getFileFromUrlAndUpload,
   uploadFile: uploadFile,
 };
 
