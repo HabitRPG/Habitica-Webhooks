@@ -10,7 +10,7 @@ let config = require('../lib/config');
 const DIRECTORIES_WITH_SPRITES = [
   'common/img/sprites/spritesmith',
 ];
-const S3_DIRECTORY = config.get('S3_DIRECTORY') || 'path/to/s3/';
+const S3_DIRECTORY = config.get('S3_SPRITES_DIRECTORY') || 'path/to/s3/';
 const GITHUB_BRANCH = config.get('GITHUB_BRANCH_TO_WATCH') || 'develop';
 
 function getFilesToUpload (commits) {
