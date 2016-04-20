@@ -8,13 +8,13 @@
     "slack-webhook": "crookedneighbor/slack-webhook#rewrite",
     "aws-sdk": "^2.1.40",
     "bluebird": "^3.3.5",
-    "body-parser": "~1.12.0",
-    "debug": "~2.1.1",
-    "express": "~4.12.2",
+    "body-parser": "~1.15.0",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
     "express-x-hub": "^1.0.3",
-    "lodash": "^3.10.0",
-    "morgan": "~1.5.1",
-    "nconf": "^0.7.1",
+    "lodash": "^4.11.1",
+    "morgan": "~1.7.0",
+    "nconf": "^0.8.4",
     "superagent": "^1.2.0"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "eslint-config-habitrpg": "^1.0.0",
     "eslint-plugin-mocha": "^2.2.0",
     "mocha": "^2.2.5",
-    "nock": "^2.9.1",
+    "nock": "^8.0.0",
     "rewire": "^2.3.4",
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0"
