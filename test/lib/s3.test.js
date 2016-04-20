@@ -55,5 +55,16 @@ describe('s3', () => {
         done();
       });
     });
+
+    it('resolves with filename', (done) => {
+      sandbox.stub(console, 'info');
+      s3Stub.yields(null, 'success');
+
+      s3.uploadFile('buffer', 'path/to/file').then((res) => {
+        expect(res).to.eql('path/to/file');
+
+        done();
+      });
+    });
   });
 });

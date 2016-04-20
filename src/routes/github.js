@@ -13,11 +13,14 @@ let copySpritesToS3 = require('../services/copy-sprites-to-s3');
 
 function sendSpriteSuccessMessage (results) {
   let numberOfUploads = results.length;
+  let text = `*${numberOfUploads} sprites were uploaded succesfully:*`;
+  let attachmentText = results.join('\n');
 
   slack.send({
+    text: text,
     attachments: [{
       color: 'good',
-      text: `${numberOfUploads} sprites were uploaded succesfully`,
+      text: attachmentText,
     }],
   });
 }
