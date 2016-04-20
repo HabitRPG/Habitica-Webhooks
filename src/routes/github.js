@@ -7,18 +7,37 @@ let Promise = require('bluebird');
 let githubMiddleware = require('../middleware/github');
 let checkXHub = githubMiddleware.checkXHub;
 let checkGithubBranch = githubMiddleware.checkGithubBranch;
+let slack = require('../lib/slack');
 
 let copySpritesToS3 = require('../services/copy-sprites-to-s3');
+
+function sendSpriteSuccessMessage (results) {
+  let numberOfUploads = results.length;
+
+  slack.send({
+    attachments: [{
+      color: 'good',
+      text: `${numberOfUploads} sprites were uploaded succesfully`,
+    }],
+  });
+}
+
+function reportError (err) {
+  slack.send({
+    text: '*Uh oh. Something went wrong in the POST /github/habitrpg route*',
+    attachments: [{
+      color: 'danger',
+      text: err.toString(),
+    }],
+  });
+}
 
 router.post('/habitrpg', checkXHub, checkGithubBranch, (req, res) => {
   let body = req.body;
 
   Promise.all([
-    copySpritesToS3(body),
-  ]).catch((error) => {
-    // TODO: Report error in slack
-    console.error(error);
-  });
+    copySpritesToS3(body).then(sendSpriteSuccessMessage),
+  ]).catch(reportError);
 
   res.sendStatus(200);
 });
