@@ -5,7 +5,7 @@
   "main": "bin/www",
   "private": true,
   "dependencies": {
-    "slack-webhook": "crookedneighbor/slack-webhook#rewrite",
+    "slack-webhook": "1.0.0",
     "aws-sdk": "^2.1.40",
     "bluebird": "^3.3.5",
     "body-parser": "~1.15.0",
