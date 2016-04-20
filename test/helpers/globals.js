@@ -12,4 +12,5 @@ global.sandbox = global.sinon.sandbox.create();
 // set up required env variables
 /* eslint-disable no-process-env */
 process.env.S3_SPRITES_DIRECTORY = 'path/to/s3/';
+process.env.SLACK_URL = 'https://hooks.slack.com';
 /* eslint-enable no-process-env */
