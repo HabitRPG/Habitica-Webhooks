@@ -13,6 +13,9 @@ let copySpritesToS3 = require('../services/copy-sprites-to-s3');
 
 function sendSpriteSuccessMessage (results) {
   let numberOfUploads = results.length;
+
+  if (numberOfUploads === 0) return;
+
   let text = `*${numberOfUploads} sprites were uploaded succesfully:*`;
   let attachmentText = results.join('\n');
 
