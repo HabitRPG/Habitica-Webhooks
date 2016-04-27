@@ -59,5 +59,24 @@ describe('copySpritesToS3', () => {
       done();
     });
   });
+
+  it('rejects if there are too many files', function (done) {
+    this.body.commits = [];
+    for (let i = 0; i < 30; i++) {
+      this.body.commits.push({
+        added: [
+          `${SPRITE_PATH}${i}-add-foo`,
+        ],
+        modified: [
+          `${SPRITE_PATH}${i}-mod-bar`,
+        ],
+      });
+    }
+
+    copySpritesToS3(this.body).then(done).catch((err) => {
+      expect(err.message).to.eql('60 files detected. This exceeds the maximum files allowed for upload (30). You may need to upload sprites manually to S3');
+      done();
+    });
+  });
 });
 

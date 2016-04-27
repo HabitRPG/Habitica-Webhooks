@@ -12,11 +12,16 @@ const DIRECTORIES_WITH_SPRITES = [
 ];
 const S3_DIRECTORY = config.get('S3_SPRITES_DIRECTORY');
 const GITHUB_BRANCH = config.get('GITHUB_BRANCH_TO_WATCH') || 'develop';
+const MAX_FILES_TO_UPLOAD = 30;
 
 function getFilesToUpload (commits) {
   let addedFiles = github.getFiles(commits, 'added');
   let modifiedFiles = github.getFiles(commits, 'modified');
   let combinedFiles = _([addedFiles, modifiedFiles]).flattenDeep().uniq().value();
+
+  if (combinedFiles.length > MAX_FILES_TO_UPLOAD) {
+    return new Error(`${combinedFiles.length} files detected. This exceeds the maximum files allowed for upload (${MAX_FILES_TO_UPLOAD}). You may need to upload sprites manually to S3`);
+  }
 
   let files = DIRECTORIES_WITH_SPRITES.map((path) => {
     return combinedFiles.filter(file => _.startsWith(file, path));
@@ -50,6 +55,10 @@ function uploadFiles (files, baseUrl) {
 
 function copySpritesToS3 (body) {
   let files = getFilesToUpload(body.commits);
+
+  if (files instanceof Error) {
+    return Promise.reject(files);
+  }
 
   let repoName = body.repository.full_name;
   let baseUrl = `https://raw.githubusercontent.com/${repoName}/${GITHUB_BRANCH}/`;
