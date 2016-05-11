@@ -12,6 +12,7 @@ const DIRECTORIES_WITH_SPRITES = [
 ];
 const S3_DIRECTORY = config.get('S3_SPRITES_DIRECTORY');
 const GITHUB_BRANCH = config.get('GITHUB_BRANCH_TO_WATCH') || 'develop';
+const MAX_FILES_TO_PARSE = 500;
 const MAX_FILES_TO_UPLOAD = 30;
 
 function getFilesToUpload (commits) {
@@ -19,8 +20,8 @@ function getFilesToUpload (commits) {
   let modifiedFiles = github.getFiles(commits, 'modified');
   let combinedFiles = _([addedFiles, modifiedFiles]).flattenDeep().uniq().value();
 
-  if (combinedFiles.length > MAX_FILES_TO_UPLOAD) {
-    return new Error(`${combinedFiles.length} files detected. This exceeds the maximum files allowed for upload (${MAX_FILES_TO_UPLOAD}). You may need to upload sprites manually to S3`);
+  if (combinedFiles.length > MAX_FILES_TO_PARSE) {
+    return new Error(`${combinedFiles.length} files to parse detected. This exceeds the maximum files allowed for parsing when uploading to S3 (${MAX_FILES_TO_PARSE}). You may need to upload sprites manually to S3`);
   }
 
   let files = DIRECTORIES_WITH_SPRITES.map((path) => {
@@ -28,6 +29,10 @@ function getFilesToUpload (commits) {
   });
 
   let flattenedFiles = _.flattenDeep(files);
+
+  if (flattenedFiles.length > MAX_FILES_TO_UPLOAD) {
+    return new Error(`${flattenedFiles.length} sprites detected. This exceeds the maximum files allowed for upload (${MAX_FILES_TO_UPLOAD}). You may need to upload sprites manually to S3`);
+  }
 
   return flattenedFiles;
 }
