@@ -13,7 +13,7 @@ const DIRECTORIES_WITH_SPRITES = [
 const S3_DIRECTORY = config.get('S3_SPRITES_DIRECTORY');
 const GITHUB_BRANCH = config.get('GITHUB_BRANCH_TO_WATCH') || 'develop';
 const MAX_FILES_TO_PARSE = 500;
-const MAX_FILES_TO_UPLOAD = 30;
+const MAX_FILES_TO_UPLOAD = 50;
 
 function getFilesToUpload (commits) {
   let addedFiles = github.getFiles(commits, 'added');

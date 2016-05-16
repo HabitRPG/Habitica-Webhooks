@@ -74,7 +74,7 @@ describe('copySpritesToS3', () => {
     }
 
     copySpritesToS3(this.body).then(done).catch((err) => {
-      expect(err.message).to.eql('60 files detected. This exceeds the maximum files allowed for upload (30). You may need to upload sprites manually to S3');
+      expect(err.message).to.eql('60 sprites detected. This exceeds the maximum files allowed for upload (50). You may need to upload sprites manually to S3');
       done();
     });
   });
