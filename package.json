@@ -15,7 +15,7 @@
     "lodash": "^4.11.1",
     "morgan": "~1.7.0",
     "nconf": "^0.8.4",
-    "superagent": "^1.2.0"
+    "superagent": "^2.1.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",
