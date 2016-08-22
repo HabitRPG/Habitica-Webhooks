@@ -28,22 +28,14 @@ function sendSpriteSuccessMessage (results) {
   });
 }
 
-function reportError (err) {
-  slack.send({
-    text: '*Uh oh. Something went wrong in the POST /github/habitrpg route*',
-    attachments: [{
-      color: 'danger',
-      text: err.toString(),
-    }],
-  });
-}
-
 router.post('/habitrpg', checkXHub, checkGithubBranch, (req, res) => {
   let body = req.body;
 
   Promise.all([
     copySpritesToS3(body).then(sendSpriteSuccessMessage),
-  ]).catch(reportError);
+  ]).catch((err) => {
+    slack.reportError('*Uh oh. Something went wrong in the POST /github/habitrpg route*', err);
+  });
 
   res.sendStatus(200);
 });
