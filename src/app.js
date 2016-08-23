@@ -9,6 +9,7 @@ let config = require('./lib/config');
 
 let baseRoutes = require('./routes');
 let githubRoutes = require('./routes/github');
+let appStoreRoutes = require('./routes/app-store');
 
 let app = express();
 
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', baseRoutes);
 app.use('/github', githubRoutes);
+app.use('/app-store', appStoreRoutes);
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(err.status || 500);
