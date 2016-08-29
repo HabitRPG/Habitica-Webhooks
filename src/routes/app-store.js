@@ -1,10 +1,12 @@
 'use strict';
 
 let express = require('express');
-let router = express.Router();
-// let Promise = require('bluebird');
-//
+let nconf = require('nconf');
 let slack = require('../lib/slack');
+
+let router = express.Router();
+
+const CHANNEL = nconf.get('SLACK_REVIEWS_CHANNEL');
 
 function getRatingColor (rating) {
   if (rating < 3) {
@@ -61,6 +63,7 @@ router.post('/reviews', (req, res) => {
 
   /* eslint-disable camelcase */
   slack.send({
+    channel: CHANNEL,
     icon_emoji: bot.emoji,
     username: bot.name,
     // channel: 'auto-mobile-reviews',
