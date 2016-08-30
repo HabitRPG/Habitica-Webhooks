@@ -2,7 +2,6 @@
 
 let _ = require('lodash');
 let Promise = require('bluebird');
-let github = require('../lib/github');
 let s3 = require('../lib/s3');
 let request = require('../lib/request');
 let config = require('../lib/config');
@@ -15,10 +14,8 @@ const GITHUB_BRANCH = config.get('GITHUB_BRANCH_TO_WATCH') || 'develop';
 const MAX_FILES_TO_PARSE = 500;
 const MAX_FILES_TO_UPLOAD = 50;
 
-function getFilesToUpload (commits) {
-  let addedFiles = github.getFiles(commits, 'added');
-  let modifiedFiles = github.getFiles(commits, 'modified');
-  let combinedFiles = _([addedFiles, modifiedFiles]).flattenDeep().uniq().value();
+function getFilesToUpload (githubFiles) {
+  let combinedFiles = _([githubFiles.added, githubFiles.modified]).flattenDeep().uniq().value();
 
   if (combinedFiles.length > MAX_FILES_TO_PARSE) {
     return new Error(`${combinedFiles.length} files to parse detected. This exceeds the maximum files allowed for parsing when uploading to S3 (${MAX_FILES_TO_PARSE}). You may need to upload sprites manually to S3`);
@@ -58,14 +55,13 @@ function uploadFiles (files, baseUrl) {
   return uploadPromises;
 }
 
-function copySpritesToS3 (body) {
-  let files = getFilesToUpload(body.commits);
+function copySpritesToS3 (githubFiles, repoName) {
+  let files = getFilesToUpload(githubFiles);
 
   if (files instanceof Error) {
     return Promise.reject(files);
   }
 
-  let repoName = body.repository.full_name;
   let baseUrl = `https://raw.githubusercontent.com/${repoName}/${GITHUB_BRANCH}/`;
 
   return Promise.all(uploadFiles(files, baseUrl));

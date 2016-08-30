@@ -8,6 +8,7 @@ let githubMiddleware = require('../middleware/github');
 let checkXHub = githubMiddleware.checkXHub;
 let checkGithubBranch = githubMiddleware.checkGithubBranch;
 let slack = require('../lib/slack');
+let github = require('../lib/github');
 
 let copySpritesToS3 = require('../services/copy-sprites-to-s3');
 
@@ -30,9 +31,11 @@ function sendSpriteSuccessMessage (results) {
 
 router.post('/habitrpg', checkXHub, checkGithubBranch, (req, res) => {
   let body = req.body;
+  let files = github.getFiles(body);
+  let repoName = github.getRepoName(body);
 
   Promise.all([
-    copySpritesToS3(body).then(sendSpriteSuccessMessage),
+    copySpritesToS3(files, repoName).then(sendSpriteSuccessMessage),
   ]).catch((err) => {
     slack.reportError('*Uh oh. Something went wrong in the POST /github/habitrpg route*', err);
   });
