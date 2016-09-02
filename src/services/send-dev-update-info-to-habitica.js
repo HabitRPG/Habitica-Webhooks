@@ -22,10 +22,9 @@ function sendDevUpdateInfoToHabitica (body, groupId) {
   return github.getFilesDiff(body).then((files) => {
     if (packageJsonChanges) {
       let pkgJson = files.find(file => file.filename === 'package.json');
-      let patch = pkgJson.patch;
 
       // We ignore changes to the package.json which are just version bumps
-      if (!VERSTION_REGEX.test(patch) || patch.match(PATCH_MARKER_REGEX).length > 1) {
+      if (pkgJson && (!VERSTION_REGEX.test(pkgJson.patch) || pkgJson.patch.match(PATCH_MARKER_REGEX).length > 1)) {
         message += `The package.json file was recently modified. You _may_ need to re-install your node_modules. Here's what changed:
 
 \`\`\`diff
@@ -38,12 +37,14 @@ ${pkgJson.patch}
     if (configJsonChanges) {
       let configJson = files.find(file => file.filename === 'config.json.example');
 
-      message += `The config.json.example file was recently modified. You _may_ need to update your config.json. Here's what changed:
+      if (configJson) {
+        message += `The config.json.example file was recently modified. You _may_ need to update your config.json. Here's what changed:
 
 \`\`\`diff
 ${configJson.patch}
 \`\`\`
 `;
+      }
     }
 
     if (!message) {
