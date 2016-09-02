@@ -28,14 +28,51 @@ describe('sendDevUpdateInfoToHabitica', function () {
     });
   });
 
-  it('ignores package.json changes that are version bumps', function () {
+  it('ignores package.json changes that are just version bumps', function () {
     github.getFiles.returns({modified: ['package.json']});
     github.getFilesDiff.returns(Promise.resolve([{
       filename: 'package.json',
-      patch: '+-    "version": "3.31.0",-    "version": "^3.30.2",',
+      patch: `@@ -1,7 +1,7 @@
+{
+    "name": "habitica",
+       "description": "A habit tracker app which treats your goals like a Role Playing Game.",
+       -  "version": "3.36.1",
+       +  "version": "3.37.0",
+          "main": "./website/server/index.js",
+             "dependencies": {
+                    "accepts": "^1.3.2",`,
     }]));
     return sendDevUpdateInfoToHabitica({ /* webhook body */ }, 'group-id').then(() => {
       expect(gryphonBot.sendChat).to.not.be.called;
+    });
+  });
+
+  it('does not ignore package.json with version bump if other things were bumped as well', function () {
+    github.getFiles.returns({modified: ['package.json']});
+    github.getFilesDiff.returns(Promise.resolve([{
+      filename: 'package.json',
+      patch: `@@ -1,7 +1,7 @@
+{
+  "name": "habitica",
+  "description": "A habit tracker app which treats your goals like a Role Playing Game.",
+  -  "version": "3.36.1",
+  +  "version": "3.37.0",
+  "main": "./website/server/index.js",
+  "dependencies": {
+    "accepts": "^1.3.2",
+@@ -150,7 +150,7 @@
+     "mongoskin": "~2.1.0",
+     "phantomjs": "^1.9",
+     "protractor": "^3.1.1",
+-    "require-again": "^1.0.1",
++    "require-again": "^2.0.0",
+     "rewire": "^2.3.3",
+     "shelljs": "^0.7.0",
+     "sinon": "^1.17.2",`,
+    }]));
+    return sendDevUpdateInfoToHabitica({ /* webhook body */ }, 'group-id').then(() => {
+      expect(gryphonBot.sendChat).to.be.calledOnce;
+      expect(gryphonBot.sendChat).to.be.calledWith('group-id', sandbox.match.string);
     });
   });
 

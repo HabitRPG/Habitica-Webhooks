@@ -4,6 +4,9 @@ let github = require('../lib/github');
 let gryphonBot = require('../lib/habitica-bots').gryphonBot;
 let Promise = require('bluebird');
 
+const VERSTION_REGEX = /"version": "[0-9\.]*"/;
+const PATCH_MARKER_REGEX = /@@.*@@/g;
+
 function sendDevUpdateInfoToHabitica (body, groupId) {
   let modifiedFiles = github.getFiles(body).modified;
   let message = '';
@@ -19,9 +22,10 @@ function sendDevUpdateInfoToHabitica (body, groupId) {
   return github.getFilesDiff(body).then((files) => {
     if (packageJsonChanges) {
       let pkgJson = files.find(file => file.filename === 'package.json');
+      let patch = pkgJson.patch;
 
       // We ignore changes to the package.json which are just version bumps
-      if (pkgJson.patch.indexOf('"version"') === -1) {
+      if (!VERSTION_REGEX.test(patch) || patch.match(PATCH_MARKER_REGEX).length > 1) {
         message += `The package.json file was recently modified. You _may_ need to re-install your node_modules. Here's what changed:
 
 \`\`\`diff
