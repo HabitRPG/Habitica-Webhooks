@@ -31,13 +31,13 @@ function sendSpriteSuccessMessage (results) {
 router.post('/habitrpg', checkXHub, checkGithubBranch, (req, res) => {
   let body = req.body;
 
+  res.sendStatus(200);
+
   Promise.all([
     copySpritesToS3(body).then(sendSpriteSuccessMessage),
   ]).catch((err) => {
     slack.reportError('*Uh oh. Something went wrong in the POST /github/habitrpg route*', err);
   });
-
-  res.sendStatus(200);
 });
 
 module.exports = router;
