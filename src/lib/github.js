@@ -1,18 +1,16 @@
 'use strict';
 
 let _ = require('lodash');
+let request = require('superagent');
 
 const COMMIT_TYPES = Object.freeze(['added', 'modified', 'deleted']);
 
 /**
- * Extracts added, modified and deleted files from GitHub webhook body
+ * Extracts added, modified and deleted files from a GitHub webhook body
  *
  * @param  webhookBody  The body of the Github Webhook
  *
- * @return files The files in the commit
- * @return files.added The files that have been added
- * @return files.modified The files that have been modified
- * @return files.deleted The files that have been deleted
+ * @return Object The files in the commit. Each property is an array. Includes added, modified and deleted properties.
  */
 function getFiles (webhookBody) {
   let commits = webhookBody.commits;
@@ -40,6 +38,37 @@ function getFiles (webhookBody) {
   return files;
 }
 
+/**
+ * Extracts the repository name from the GitHub webhook body
+ *
+ * @param  webhookBody  The body of the Github Webhook
+ *
+ * @return String The full name of the repository
+ */
+function getRepoName (webhookBody) {
+  return webhookBody.repository.full_name;
+}
+
+/**
+ * Gets the patch files for a commit and file
+ *
+ * @param  webhookBody  The body of the Github Webhook
+ *
+ * @return Promise A promise that resolves an array of files
+ */
+function getFilesDiff (webhookBody) {
+  let before = webhookBody.before;
+  let after = webhookBody.after;
+  let repoName = getRepoName(webhookBody);
+
+  return request.get(`https://api.github.com/repos/${repoName}/compare/${before}...${after}`).then((res) => {
+    return res.body.files;
+  });
+}
+
+
 module.exports = {
   getFiles: getFiles,
+  getFilesDiff: getFilesDiff,
+  getRepoName: getRepoName,
 };
