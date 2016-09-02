@@ -12,6 +12,12 @@
   "SLACK_URL": "https://hooks.slack.com/services/id/id/id",
   "SLACK_REVIEWS_CHANNEL": "some-channel",
 
+  "HABITICA": {
+    "GROUPS": {
+      "UPDATE_DEVS": "123-456"
+    }
+  },
+
   "HABITICA_BOTS": {
     "GRYPHON_BOT": {
       "UUID": "123-456",
