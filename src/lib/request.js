@@ -1,7 +1,7 @@
 'use strict';
 
 let request = require('superagent');
-let Promise = require('bluebird');
+global.Promise = require('bluebird');
 
 function getFileFromUrl (url) {
   return new Promise((resolve, reject) => {

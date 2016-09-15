@@ -2,7 +2,7 @@
 
 let express = require('express');
 let router = express.Router();
-let Promise = require('bluebird');
+global.Promise = require('bluebird');
 
 let githubMiddleware = require('../middleware/github');
 let checkXHub = githubMiddleware.checkXHub;

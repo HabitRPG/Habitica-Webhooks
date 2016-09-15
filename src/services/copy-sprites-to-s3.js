@@ -1,7 +1,7 @@
 'use strict';
 
 let _ = require('lodash');
-let Promise = require('bluebird');
+global.Promise = require('bluebird');
 let s3 = require('../lib/s3');
 let request = require('../lib/request');
 let config = require('../lib/config');

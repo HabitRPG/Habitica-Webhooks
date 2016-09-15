@@ -2,7 +2,7 @@
 
 let github = require('../../src/lib/github');
 let request = require('superagent');
-let Promise = require('bluebird');
+global.Promise = require('bluebird');
 
 describe('github', () => {
   afterEach(function () {

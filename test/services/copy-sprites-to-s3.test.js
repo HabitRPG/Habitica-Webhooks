@@ -4,7 +4,7 @@ let copySpritesToS3 = require('../../src/services/copy-sprites-to-s3');
 let request = require('../../src/lib/request');
 let s3 = require('../../src/lib/s3');
 let github = require('../../src/lib/github');
-let Promise = require('bluebird');
+global.Promise = require('bluebird');
 
 const SPRITE_PATH = 'common/img/sprites/spritesmith/';
 const GITHUB_URL_BASE = `https://raw.githubusercontent.com/habitrpg/habitrpg/develop/${SPRITE_PATH}`;

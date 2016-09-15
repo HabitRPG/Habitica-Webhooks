@@ -1,6 +1,6 @@
 'use strict';
 
-let Promise = require('bluebird');
+global.Promise = require('bluebird');
 let AWS = require('aws-sdk');
 
 let config = require('./config');

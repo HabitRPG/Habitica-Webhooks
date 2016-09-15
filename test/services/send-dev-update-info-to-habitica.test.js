@@ -3,7 +3,7 @@
 let sendDevUpdateInfoToHabitica = require('../../src/services/send-dev-update-info-to-habitica');
 let github = require('../../src/lib/github');
 let gryphonBot = require('../../src/lib/habitica-bots').gryphonBot;
-let Promise = require('bluebird');
+global.Promise = require('bluebird');
 
 describe('sendDevUpdateInfoToHabitica', function () {
   beforeEach(function () {

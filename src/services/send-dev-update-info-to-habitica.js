@@ -2,7 +2,7 @@
 
 let github = require('../lib/github');
 let gryphonBot = require('../lib/habitica-bots').gryphonBot;
-let Promise = require('bluebird');
+global.Promise = require('bluebird');
 
 const VERSTION_REGEX = /"version": "[0-9\.]*"/;
 const PATCH_MARKER_REGEX = /@@.*@@/g;
