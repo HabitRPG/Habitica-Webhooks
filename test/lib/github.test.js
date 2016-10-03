@@ -62,7 +62,7 @@ describe('github', () => {
         before: 'e65f27fb69769e54405e2c3a798ec5b240ef2b7e',
         after: 'ebef5ad60c363af3d6ab571461f424a8791f7229',
         repository: {
-          full_name: 'HabitRPG/habitrpg', // eslint-disable-line camelcase
+          full_name: 'HabitRPG/habitica', // eslint-disable-line camelcase
         },
       };
     });

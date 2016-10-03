@@ -6,7 +6,7 @@ Right now it only recieves webhooks from Github and uploads changes to sprites t
 
 ## Github Setup
 
-Go to the settings of the habitrpg repo and add a new webhook for the push event. Add `http://urlwhereappisdeployed.com/github/repo` and include a secret string (Make note of this).
+Go to the settings of the habitica repo and add a new webhook for the push event. Add `http://urlwhereappisdeployed.com/github/repo` and include a secret string (Make note of this).
 
 You will need to supply a few environmental variables, whether through a config.json file or passed in on the command line.
 

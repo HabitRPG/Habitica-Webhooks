@@ -7,11 +7,11 @@ let github = require('../../src/lib/github');
 global.Promise = require('bluebird');
 
 const SPRITE_PATH = 'website/assets/sprites/spritesmith/';
-const GITHUB_URL_BASE = `https://raw.githubusercontent.com/habitrpg/habitrpg/develop/${SPRITE_PATH}`;
+const GITHUB_URL_BASE = `https://raw.githubusercontent.com/habitrpg/habitica/develop/${SPRITE_PATH}`;
 
 describe('copySpritesToS3', () => {
   beforeEach(function () {
-    sandbox.stub(github, 'getRepoName').returns('habitrpg/habitrpg');
+    sandbox.stub(github, 'getRepoName').returns('habitrpg/habitica');
     sandbox.stub(github, 'getFiles').returns({
       added: [
         `${SPRITE_PATH}1-add-foo`,
