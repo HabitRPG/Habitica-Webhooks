@@ -24,7 +24,7 @@
     "eslint-config-habitrpg": "^1.0.0",
     "eslint-plugin-mocha": "^2.2.0",
     "mocha": "^3.0.0",
-    "nock": "^8.0.0",
+    "nock": "^9.0.0",
     "nodemon": "^1.10.2",
     "rewire": "^2.3.4",
     "sinon": "^1.15.4",
