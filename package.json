@@ -16,7 +16,7 @@
     "morgan": "~1.7.0",
     "nconf": "^0.8.4",
     "slack-webhook": "1.0.0",
-    "superagent": "^2.2.0"
+    "superagent": "^3.2.0"
   },
   "devDependencies": {
     "chai": "^3.2.0",
