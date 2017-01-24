@@ -8,14 +8,15 @@ function HabiticaBot (creds) {
 }
 
 HabiticaBot.prototype.sendChat = function sendChat (groupId, msgText) {
-  return this.api.chat.post(groupId, {
+  return this.api.post(`/groups/${groupId}/chat`, {
     message: msgText,
   });
 };
 
 const gryphonBot = new HabiticaBot({
-  uuid: config.get('HABITICA_BOTS:GRYPHON_BOT:UUID'),
-  token: config.get('HABITICA_BOTS:GRYPHON_BOT:API_TOKEN'),
+  id: config.get('HABITICA_BOTS:GRYPHON_BOT:UUID'),
+  apiToken: config.get('HABITICA_BOTS:GRYPHON_BOT:API_TOKEN'),
+  platform: 'Habitica Webhooks',
 });
 
 module.exports = {
