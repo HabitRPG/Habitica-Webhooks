@@ -1,7 +1,7 @@
 'use strict';
 
 let express = require('express');
-let router = express.Router();
+let router = express.Router(); // eslint-disable-line new-cap
 global.Promise = require('bluebird');
 
 let githubMiddleware = require('../middleware/github');
@@ -24,7 +24,7 @@ function sendSpriteSuccessMessage (results) {
   let attachmentText = results.join('\n');
 
   slack.send({
-    text: text,
+    text,
     attachments: [{
       color: 'good',
       text: attachmentText,

@@ -25,6 +25,6 @@ function checkGithubBranch (req, res, next) {
 }
 
 module.exports = {
-  checkXHub: checkXHub,
-  checkGithubBranch: checkGithubBranch,
+  checkXHub,
+  checkGithubBranch,
 };

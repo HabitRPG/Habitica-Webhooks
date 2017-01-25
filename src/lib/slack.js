@@ -13,7 +13,7 @@ function send (options) {
 
 function reportError (text, err) {
   slack.send({
-    text: text,
+    text,
     attachments: [{
       color: 'danger',
       text: err.toString(),
@@ -22,6 +22,6 @@ function reportError (text, err) {
 }
 
 module.exports = {
-  send: send,
-  reportError: reportError,
+  send,
+  reportError,
 };

@@ -33,6 +33,6 @@ function uploadFile (buffer, fileName) {
 }
 
 module.exports = {
-  uploadFile: uploadFile,
+  uploadFile,
 };
 

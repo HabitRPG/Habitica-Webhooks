@@ -68,7 +68,7 @@ function getFilesDiff (webhookBody) {
 
 
 module.exports = {
-  getFiles: getFiles,
-  getFilesDiff: getFilesDiff,
-  getRepoName: getRepoName,
+  getFiles,
+  getFilesDiff,
+  getRepoName,
 };

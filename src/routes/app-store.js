@@ -4,7 +4,7 @@ let express = require('express');
 let nconf = require('nconf');
 let slack = require('../lib/slack');
 
-let router = express.Router();
+let router = express.Router(); // eslint-disable-line new-cap
 
 const CHANNEL = nconf.get('SLACK_REVIEWS_CHANNEL');
 
@@ -69,7 +69,7 @@ router.post('/reviews', (req, res) => {
     // channel: 'auto-mobile-reviews',
     attachments: [{
       fallback: 'iOS Review',
-      color: color,
+      color,
       author_name: getRatingStars(body.rating),
       author_icon: bot.appIcon,
       title: body.title,
