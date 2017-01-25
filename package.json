@@ -47,6 +47,6 @@
   },
   "homepage": "https://github.com/habitrpg/habitica-webhooks",
   "engines": {
-    "node": "4.3.1"
+    "node": "^6.0.0"
   }
 }
