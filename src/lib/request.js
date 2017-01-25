@@ -16,6 +16,6 @@ function getFileFromUrl (url) {
 }
 
 module.exports = {
-  getFileFromUrl: getFileFromUrl,
+  getFileFromUrl,
 };
 

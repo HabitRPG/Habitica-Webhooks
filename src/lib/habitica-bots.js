@@ -20,6 +20,6 @@ const gryphonBot = new HabiticaBot({
 });
 
 module.exports = {
-  HabiticaBot: HabiticaBot,
-  gryphonBot: gryphonBot,
+  HabiticaBot,
+  gryphonBot,
 };
