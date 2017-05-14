@@ -23,7 +23,7 @@
     "eslint": "^3.0.0",
     "eslint-config-habitrpg": "^3.0.0",
     "eslint-plugin-mocha": "^4.7.0",
-    "mocha": "^3.0.0",
+    "mocha": "^3.4.0",
     "nock": "^9.0.1",
     "nodemon": "^1.10.2",
     "rewire": "^2.3.4",
