@@ -5,7 +5,7 @@
   "main": "bin/www",
   "private": true,
   "dependencies": {
-    "aws-sdk": "^2.1.40",
+    "aws-sdk": "^2.60.0",
     "bluebird": "^3.3.5",
     "body-parser": "~1.16.0",
     "debug": "~2.6.0",
