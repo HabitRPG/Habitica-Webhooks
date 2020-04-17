@@ -12,6 +12,7 @@ let config = require('../lib/config');
 
 let copySpritesToS3 = require('../services/copy-sprites-to-s3');
 let sendDevUpdateInfoToHabitica = require('../services/send-dev-update-info-to-habitica');
+let sendIssueInfoToHabitica = require('../services/send-issue-info-to-habitica');
 
 const DEV_UPDATES_GROUP_ID = config.get('HABITICA:GROUPS:UPDATE_DEVS');
 
@@ -43,6 +44,17 @@ router.post('/habitrpg', checkXHub, checkGithubBranch, (req, res) => {
   ]).catch((err) => {
     slack.reportError('*Uh oh. Something went wrong in the POST /github/habitrpg route*', err);
   });
+});
+
+router.post('/issues', checkXHub, (req, res) => {
+  let body = req.body;
+
+  res.sendStatus(200);
+
+  sendIssueInfoToHabitica(body, DEV_UPDATES_GROUP_ID)
+    .catch((err) => {
+      slack.reportError('*Uh oh. Something went wrong in the POST /github/issues route*', err);
+    });
 });
 
 module.exports = router;
