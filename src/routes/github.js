@@ -42,6 +42,7 @@ router.post('/habitrpg', checkXHub, checkGithubBranch, (req, res) => {
     copySpritesToS3(body).then(sendSpriteSuccessMessage),
     sendDevUpdateInfoToHabitica(body, DEV_UPDATES_GROUP_ID),
   ]).catch((err) => {
+    console.error(err);
     slack.reportError('*Uh oh. Something went wrong in the POST /github/habitrpg route*', err);
   });
 });
@@ -53,6 +54,7 @@ router.post('/issues', checkXHub, (req, res) => {
 
   sendIssueInfoToHabitica(body, DEV_UPDATES_GROUP_ID)
     .catch((err) => {
+      console.error(err);
       slack.reportError('*Uh oh. Something went wrong in the POST /github/issues route*', err);
     });
 });

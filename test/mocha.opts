@@ -2,7 +2,6 @@
 --reporter spec
 --timeout 8000
 --growl
---debug
 --check-leaks
 --require ./test/helpers/globals
 --globals sandbox
