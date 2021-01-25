@@ -9,7 +9,7 @@
     "bluebird": "^3.3.5",
     "body-parser": "~1.16.0",
     "debug": "~2.6.0",
-    "express": "~4.14.0",
+    "express": "~4.15.3",
     "express-x-hub": "^1.0.3",
     "habitica": "^4.0.0",
     "lodash": "^4.11.1",
