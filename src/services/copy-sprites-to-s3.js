@@ -8,7 +8,17 @@ let config = require('../lib/config');
 let github = require('../lib/github');
 
 const DIRECTORIES_WITH_SPRITES = [
-  'spritesmith',
+  'achievements',
+  'backgrounds',
+  'customize',
+  'gear',
+  'misc',
+  'notifications',
+  'npc',
+  'quests',
+  'shop',
+  'skills',
+  'stable',
 ];
 const S3_DIRECTORY = config.get('S3_SPRITES_DIRECTORY');
 const GITHUB_BRANCH = config.get('GITHUB_BRANCH_TO_WATCH') || 'develop';
